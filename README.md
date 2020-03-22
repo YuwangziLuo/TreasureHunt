@@ -62,6 +62,7 @@ TreasureHunt.exe [option]
 + The default mode is '-p'.
 + The 'bug' triggered by option **-b** is merely AMUSING.
 + If **-p** or **-s** options are specified, certain chars(shown below) will appear on the console to show the process or step: 
+
 | Char | Meaning |
 | :-: | :- |
 | @ | Treasure hunter. |
