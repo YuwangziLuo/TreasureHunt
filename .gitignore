@@ -1,0 +1,11 @@
+#VSCode Configuration
+
+.vscode/
+
+#Code
+
+code/aside/
+code/discarded/
+
+#Other
+errlog.txt
