@@ -4,19 +4,14 @@ xttx x  txtxxt  t xttx   xtxtxxt  t
 xx   t  x    xt x     x x  t     xxx
  x x x t txt xx xt      x xt     xxx
 xt  xx  xx  xxx  txttx x  txtxxt  t 
-xxtxt tt xt  xtt x    x x xt     xxx
-xtt    t  x    xx     x x xt     xxx
+xxtxt tt xt  xtt x    x x xtxx  xxxx
+xtt    t  x    xx     x x xtxx   xxx
 t t t   x xxx xxt xttx x  txtxxt  t 
-xxx tx xt xt t xt     x x xt     xxx
-x   x x xt     xxx    x x xt     xxx
+xxx tx xt xt t xt     x x xt  t  xxx
+x   x x xt s   xxx    x x xt     xxx
 xttx x  txtxxt  t xttx x  txtxxt  t 
 xx   t  x    xt x  x x xt     xxxxt 
-xxx  xxt xt x tt x x x xt     xxxxtx
+xxx  xxt xt x tt x x x xt   xxxxxxtx
 x   x x xt     xxxxttx x  txtxxt  t 
 xttx x  txtxxt  t     x x xt     xxx
-xx   t  x    xt x     x x xt     xxx
- x x x t txt xx xtxttx x  txtxxt  t 
-xt  xxs xx  xxx  t    x x xt     xxx
-xxtxt tt xt  xtt x    x x xt     xxx
-xtt    t  x    xx     x x xt     xxx
-t t t   x xxx xxt xttx x  txtxxt  t 
+xx   t  x    xt x     x x xtx     xx
