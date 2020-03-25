@@ -4,23 +4,40 @@ void print_map(const unsigned short row_num, const unsigned short col_num, const
 {
     system("cls");
 
-    for (unsigned i = 0; i < (row_num * col_num); ++i)
     {
-        if ((i % col_num) == 0)
+        char *printContent = (char *)malloc((row_num * (col_num + 1)) * sizeof(char));
+
+        if (printContent == NULL)
         {
-            putchar((int)'\n');
+            fprintf(stderr, "ERROR: Run-time error. Fail to allocate memory. \n");
+
+            wait_and_exit(1);
         }
 
-        if (i == crt_pos)
+        bool is_crt_pos_encountered = false;
+        for (unsigned i = 0; i < (unsigned)((row_num * (col_num + 1)) - 1); ++i)
         {
-            putchar((int)'@');
+            if ((i % (col_num + 1)) == 0)
+            {
+                *(printContent + i) = '\n';
+            }
+            else
+            {
+                if ((!is_crt_pos_encountered) && (i == (crt_pos + (i / (col_num + 1)))))
+                {
+                    *(printContent + i) = '@';
+                    is_crt_pos_encountered = true;
+                }
+                else
+                {
+                    *(printContent + i) = (*(map + i - (i / (col_num + 1))));
+                }
+            }
         }
-        else
-        {
-            putchar((int)*(map + i));
-        }
+        *(printContent + (row_num * (col_num + 1)) - 1) = '\n';
+
+        printf("%s", printContent);
     }
-    putchar((int)'\n');
 
     switch (mode)
     {
