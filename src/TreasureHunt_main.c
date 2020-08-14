@@ -1,4 +1,4 @@
-#include "TreasureHunt.h"
+#include "../include/TreasureHunt.h"
 
 int main(int argc, char **argv)
 {

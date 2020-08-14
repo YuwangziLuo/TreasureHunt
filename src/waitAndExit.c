@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../include/TreasureHunt.h"
 
-void wait_and_exit(int exitCode)
+void waitAndExit(int exitCode)
 {
     printf("Press the enter key to exit...");
     while (getchar() != (int)'\n')

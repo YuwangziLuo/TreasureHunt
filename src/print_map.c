@@ -1,4 +1,7 @@
-#include "TreasureHunt.h"
+#include <stdio.h>
+#include <stdbool.h>
+#include <windows.h>
+#include "../include/TreasureHunt.h"
 
 void print_map(const unsigned short row_num, const unsigned short col_num, const char *map, const unsigned crt_pos, const signed char mode, const unsigned long wait_time)
 {
@@ -11,7 +14,7 @@ void print_map(const unsigned short row_num, const unsigned short col_num, const
         {
             fprintf(stderr, "ERROR: Run-time error. Fail to allocate memory. \n");
 
-            wait_and_exit(1);
+            waitAndExit(1);
         }
 
         bool is_crt_pos_encountered = false;

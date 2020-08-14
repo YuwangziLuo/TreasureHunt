@@ -1,4 +1,4 @@
-#include "TreasureHunt.h"
+#include "../include/TreasureHunt.h"
 
 void search(const unsigned short row_num, const unsigned short col_num, char *map, const unsigned crt_pos, unsigned *const foundTreasure_num_ptr, const signed char mode, const unsigned long wait_time)
 {

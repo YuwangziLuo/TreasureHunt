@@ -1,10 +1,6 @@
 #ifndef TREASUREHUNT_H
 #define TREASUREHUNT_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <windows.h>
 
 signed char get_mode(int argc, char **argv, unsigned long *const wait_time);
 
@@ -14,6 +10,6 @@ void search(const unsigned short row_num, const unsigned short col_num, char *ma
 
 void print_map(const unsigned short row_num, const unsigned short col_num, const char *map, const unsigned crt_pos, const signed char mode, const unsigned long wait_time);
 
-void wait_and_exit(int exitCode);
+void waitAndExit(int exitCode);
 
 #endif //TREASUREHUNT_H

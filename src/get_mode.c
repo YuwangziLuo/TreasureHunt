@@ -1,5 +1,7 @@
-#include "TreasureHunt.h"
+#include <stdio.h>
+#include <windows.h>
 #include "getopt.h"
+#include "../include/TreasureHunt.h"
 
 signed char get_mode(int argc, char **argv, unsigned long *const wait_time)
 {
@@ -58,7 +60,7 @@ signed char get_mode(int argc, char **argv, unsigned long *const wait_time)
         case (int)'h':
             printf("\n%s\n", HELP_MESSAGE);
 
-            wait_and_exit(0);
+            waitAndExit(0);
             break;
         case (int)'p':
             if (optarg != NULL)
@@ -72,7 +74,7 @@ signed char get_mode(int argc, char **argv, unsigned long *const wait_time)
                 {
                     fprintf(stderr, "ERROR: Option '-p' only accepts a positive integer as optional argument. \n");
 
-                    wait_and_exit(0);
+                    waitAndExit(0);
                 }
             }
             //No 'break'.
@@ -83,7 +85,7 @@ signed char get_mode(int argc, char **argv, unsigned long *const wait_time)
         default:
             fprintf(stderr, "ERROR: Invalid option or format. \n");
 
-            wait_and_exit(0);
+            waitAndExit(0);
             break;
         }
     }
@@ -98,7 +100,7 @@ signed char get_mode(int argc, char **argv, unsigned long *const wait_time)
         }
         fprintf(stderr, "ERROR: Unexpected error. \n");
 
-        wait_and_exit(-1);
+        waitAndExit(-1);
     }
 
     return mode;
