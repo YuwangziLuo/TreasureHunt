@@ -2,7 +2,7 @@
 #define TREASUREHUNT_H
 
 
-signed char get_mode(int argc, char **argv, unsigned long *const wait_time);
+char get_mode(int argc, char **argv, unsigned long *const wait_time);
 
 char *get_map(unsigned short *const row_num_ptr, unsigned short *const col_num_ptr, unsigned *const treasure_num_ptr, unsigned *const start_pos_ptr);
 

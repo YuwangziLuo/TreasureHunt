@@ -52,7 +52,6 @@ TreasureHunt.exe [option]
 ```
 | Option | Argument | Specification |
 | :-: | :-: | :- |
-| -b | No | Trigger bug.  |
 | -h | No | Print out this help message.  |
 | -p | Optional | Get process of treasure-hunt. Optional argument must be a positive integer as rough interval(millisecond) between two status. (Default value: 5)  |
 | -r | No | Get only result of treasure-hunt.  |
