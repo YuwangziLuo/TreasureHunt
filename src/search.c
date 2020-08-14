@@ -1,6 +1,13 @@
 #include "../include/TreasureHunt.h"
 
-void search(const unsigned short row_num, const unsigned short col_num, char *map, const unsigned crt_pos, unsigned *const foundTreasure_num_ptr, const signed char mode, const unsigned long wait_time)
+void search(
+    const unsigned row_num,
+    const unsigned col_num,
+    char *map,
+    const unsigned crt_pos,
+    unsigned *const foundTreasure_num_ptr,
+    const char mode,
+    const unsigned long wait_time)
 {
     //'*foundTreasure_num_ptr' is initialized to 0 before entering this function.
     if (mode != (signed char)'r')

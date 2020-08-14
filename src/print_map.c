@@ -3,7 +3,13 @@
 #include <windows.h>
 #include "../include/TreasureHunt.h"
 
-void print_map(const unsigned short row_num, const unsigned short col_num, const char *map, const unsigned crt_pos, const signed char mode, const unsigned long wait_time)
+void print_map(
+    const unsigned row_num,
+    const unsigned col_num,
+    const char *map,
+    const unsigned crt_pos,
+    const char mode,
+    const unsigned long wait_time)
 {
     system("cls");
 

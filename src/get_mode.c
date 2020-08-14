@@ -3,7 +3,10 @@
 #include "getopt.h"
 #include "../include/TreasureHunt.h"
 
-char get_mode(int argc, char **argv, unsigned long *const wait_time)
+char get_mode(
+    int argc,
+     char **argv, 
+     unsigned long *const wait_time)
 {
     const char *HELP_MESSAGE = "Option\tArgument\tSpecification\n\n"
                                "-h\tNo\t\tPrint out this help message. \n"

@@ -2,7 +2,11 @@
 #include <stdbool.h>
 #include "../include/TreasureHunt.h"
 
-char *get_map(unsigned short *const row_num_ptr, unsigned short *const col_num_ptr, unsigned *const treasure_num_ptr, unsigned *const start_pos_ptr)
+char *get_map(
+    unsigned *const row_num_ptr,
+    unsigned *const col_num_ptr,
+    unsigned *const treasure_num_ptr,
+    unsigned *const start_pos_ptr)
 {
     //'*row_num_ptr', '*col_num_ptr' and '*treasure_num_ptr' are initialized to 0 before entering this function.
     unsigned cnt = 0;
