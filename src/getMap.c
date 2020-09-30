@@ -1,38 +1,36 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "../include/TreasureHunt.h"
+#include "../include/msg.h"
 
-char *get_map(
-    unsigned *const row_num_ptr,
-    unsigned *const col_num_ptr,
-    unsigned *const treasure_num_ptr,
-    unsigned *const start_pos_ptr)
+void getMap(
+    MapInfo_t *const pMapInfo,
+    const User_t *const pUserInfo,
+    SearchInfo_t *const pSearchInfo)
 {
     //'*row_num_ptr', '*col_num_ptr' and '*treasure_num_ptr' are initialized to 0 before entering this function.
-    unsigned cnt = 0;
-    char *map_for_chk = (char *)NULL;
+    int cnt = 0;
+    char *rawMap = NULL;
 
     {
-        FILE *fp = fopen("./Map.txt", "r");
+        FILE *fp = fopen(
+            pUserInfo->pMapFileLocation,
+            "r");
 
-        if (fp == NULL)
+        if (!fp)
         {
-            fprintf(stderr, "ERROR: Fail to open \"Map.txt\", check if the file exists. \n");
-
-            waitAndExit(1);
+            Return_WithError(err_fileName);
         }
 
         for (int ch = fgetc(fp); ch != EOF; ch = fgetc(fp))
         {
-            map_for_chk = (char *)realloc(map_for_chk, (++cnt) * sizeof(char));
-            if (map_for_chk == NULL)
+            rawMap = (char *)realloc(rawMap, (++cnt) * sizeof(char));
+            if (!rawMap)
             {
-                fprintf(stderr, "ERROR: Run-time error. Fail to allocate memory. \n");
-
-                waitAndExit(1);
+                Return_WithError(err_memAlloc);
             }
 
-            *(map_for_chk + cnt - 1) = ch;
+            *(rawMap + cnt - 1) = ch;
         }
 
         fclose(fp);
@@ -43,114 +41,114 @@ char *get_map(
     {
         fprintf(stderr, "ERROR: Unexpected file contents. File may not be empty. \n");
 
-        waitAndExit(0);
+        WaitReturn(0);
     }
 
-    if ((cnt == 1) && (*map_for_chk == '\n'))
+    if ((cnt == 1) && (*rawMap == '\n'))
     {
         fprintf(stderr, "ERROR: Unexpected file contents. File may contain nothing except for newline characters. \n");
 
-        waitAndExit(0);
+        WaitReturn(0);
     }
     /*
     *The two 'if's above are to prevent run-time error later, otherwise: 
-    **1. If 'cnt' is 0, run-time error would occur in "if (*(map_for_chk + cnt - 1) != '\n')" later; 
-    **2. If 'cnt' is 1, and the (only) element is '\n', run-time error would occur in "while (*(map_for_chk + cnt - 2) == '\n')" later; 
+    **1. If 'cnt' is 0, run-time error would occur in "if (*(rawMap + cnt - 1) != '\n')" later; 
+    **2. If 'cnt' is 1, and the (only) element is '\n', run-time error would occur in "while (*(rawMap + cnt - 2) == '\n')" later; 
     */
 
     //This 'if-else' is to only keep one '\n' in the tail.
-    if (*(map_for_chk + cnt - 1) != '\n')
+    if (*(rawMap + cnt - 1) != '\n')
     {
-        map_for_chk = (char *)realloc(map_for_chk, (++cnt) * sizeof(char));
-        if (map_for_chk == NULL)
+        rawMap = (char *)realloc(rawMap, (++cnt) * sizeof(char));
+        if (rawMap == NULL)
         {
             fprintf(stderr, "ERROR: Run-time error. Fail to allocate memory. \n");
 
-            waitAndExit(1);
+            WaitReturn(1);
         }
-        *(map_for_chk + cnt - 1) = '\n';
+        *(rawMap + cnt - 1) = '\n';
     }
     else
     {
-        while (*(map_for_chk + cnt - 2) == '\n')
+        while (*(rawMap + cnt - 2) == '\n')
         {
             if (cnt == 2) //This means that all characters are '\n', and this can stop the run-time error in the next loop.
             {
                 fprintf(stderr, "ERROR: Unexpected file contents. File may contain nothing except for newline characters. \n");
 
-                waitAndExit(0);
+                WaitReturn(0);
             }
 
-            map_for_chk = (char *)realloc(map_for_chk, (--cnt) * sizeof(char));
-            if (map_for_chk == NULL)
+            rawMap = (char *)realloc(rawMap, (--cnt) * sizeof(char));
+            if (rawMap == NULL)
             {
                 fprintf(stderr, "ERROR: Run-time error. Fail to allocate memory. \n");
 
-                waitAndExit(1);
+                WaitReturn(1);
             }
         }
     }
 
     {
-        unsigned distance_ckr[2] = {0, 0};
-        bool is_firstChk = true, is_startPoint_found = false;
+        unsigned distanceChker[2] = {0, 0};
+        bool isFirstChk = true, isStartPointFound = false;
         char ch;
 
         for (unsigned i = 0; i < cnt; ++i)
         {
-            ch = *(map_for_chk + i);
+            ch = *(rawMap + i);
 
             if ((ch != (int)' ') && (ch != (int)'x') && (ch != (int)'X') && (ch != (int)'t') && (ch != (int)'T') && (ch != (int)'\n') && (ch != (int)'s') && (ch != (int)'S'))
             {
                 fprintf(stderr, "ERROR: Unexpected file contents. File may not contain illegal characters. \n");
 
-                waitAndExit(0);
+                WaitReturn(0);
             }
 
             if ((ch == 's') || (ch == 'S'))
             {
-                if (is_startPoint_found)
+                if (isStartPointFound)
                 {
                     fprintf(stderr, "ERROR: Unexpected file contents. A unique starting-point is required. \n");
 
-                    waitAndExit(0);
+                    WaitReturn(0);
                 }
                 else
                 {
-                    is_startPoint_found = true;
+                    isStartPointFound = true;
                 }
             }
 
             if ((ch == 't') || (ch == 'T'))
             {
-                ++(*treasure_num_ptr);
+                ++(pMapInfo->treasureNum);
             }
 
             if (ch == '\n')
             {
-                if (is_firstChk)
+                if (isFirstChk)
                 {
-                    distance_ckr[1] = i;
-                    is_firstChk = false;
+                    distanceChker[1] = i;
+                    isFirstChk = false;
                 }
                 else
                 {
-                    if ((i + distance_ckr[0]) != ((2 * distance_ckr[1]) + 1))
+                    if ((i + distanceChker[0]) != ((2 * distanceChker[1]) + 1))
                     {
                         fprintf(stderr, "ERROR: Unexpected file contents. Number of characters in each line must be consistent. \n");
 
-                        waitAndExit(0);
+                        WaitReturn(0);
                     }
 
-                    distance_ckr[0] = (distance_ckr[1] + 1);
-                    distance_ckr[1] = i;
+                    distanceChker[0] = (distanceChker[1] + 1);
+                    distanceChker[1] = i;
                 }
             }
         }
     }
     //File-checking is done.
 
-    //Now copy 'map_for_chk' to 'map', meanwhile elliminate the '\n' and change certain characters.
+    //Now copy 'rawMap' to 'map', meanwhile elliminate the '\n' and change certain characters.
     char *map = (char *)NULL;
 
     {
@@ -158,9 +156,9 @@ char *get_map(
         unsigned i = 0, j = 0;
         for (; i < cnt; ++i)
         {
-            if ((ch = *(map_for_chk + i)) == '\n')
+            if ((ch = *(rawMap + i)) == '\n')
             {
-                ++(*row_num_ptr);
+                ++(pMapInfo->rowNum);
             }
             else
             {
@@ -175,7 +173,7 @@ char *get_map(
                     break;
                 case 's':
                 case 'S':
-                    *(start_pos_ptr) = j;
+                    pMapInfo->startPos = j;
                     ch = ' ';
                     break;
                 default:
@@ -187,20 +185,20 @@ char *get_map(
                 {
                     fprintf(stderr, "ERROR: Run-time error. Fail to allocate memory. \n");
 
-                    waitAndExit(1);
+                    WaitReturn(1);
                 }
 
                 *(map + j - 1) = ch;
 
-                if ((*row_num_ptr) == 0)
+                if (pMapInfo->rowNum == 0)
                 {
-                    ++(*col_num_ptr);
+                    ++(pMapInfo->columnNum);
                 }
             }
         }
     }
 
-    free(map_for_chk);
+    free(rawMap);
 
     return map;
 }

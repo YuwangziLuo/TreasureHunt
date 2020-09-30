@@ -1,17 +1,26 @@
 # TreasureHunt
+
 This is a tiny command-line C program searching for 
 reachable treasures in a maze described in a **.txt** map. 
 
+## Announcement
+
++ This repository is currently archived. 
+
 ## Features
+
 + Tiny and simple
 + Using DFS algorithm
 + For exercise
 
 ## Platform
+
 Windows 10(64 bit)
 
 ## Instructions
+
 ### 1. Create a Map File
+
 In the directory of the program, create a new file: **Map.txt**. 
 Then fill in with legal characters: 
 | Legal Char | Meaning |
@@ -46,6 +55,7 @@ x   x x xt     xxxxttx x  txtxxt  t
 ```
 
 ### 2. Run the Program
+
 Launch **cmd.exe** or **powershell.exe** in the directory, execute: 
 ```
 TreasureHunt.exe [option]
@@ -59,7 +69,6 @@ TreasureHunt.exe [option]
 
 **Note**
 + The default mode is '-p'.
-+ The 'bug' triggered by option **-b** is merely AMUSING.
 + If **-p** or **-s** options are specified, certain chars(shown below) will appear on the console to show the process or step: 
 
 | Char | Meaning |

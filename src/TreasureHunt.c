@@ -1,25 +1,31 @@
+#include <stdio.h>
 #include "../include/TreasureHunt.h"
 
 int main(
     int argc,
     char **argv)
 {
-    unsigned long waitTime = 5UL;
-    const char mode = get_mode(
+    User_t searcherInfo = {
+        DEFAULT_SEARCH_OPT,
+        DEFAULT_WAIT_TIME,
+        NULL};
+
+    Get_UserOption(
         argc,
         argv,
-        &waitTime);
+        &searcherInfo);
 
-    //'mode' is checked inside 'get_mode(int, char **)'.
+    /* 
+    * 'searcherInfo.mode' is checked inside 
+    * 'void Get_UserOption(int argc, char **argv, User_t *const pSearcherInfo)'.
+    */
 
-    unsigned rowNum = 0U, colNum = 0U;
-    unsigned treasure_num = 0U, foundTreasureNum = 0U, startPos;
+    MapInfo_t mapInfo = {0, 0, 0};
 
-    char *map = get_map(
-        &rowNum,
-        &colNum,
-        &treasure_num,
-        &startPos);
+    int foundTreasureNum = 0;
+
+    char *const map = getMap(
+        &mapInfo);
 
     search(
         rowNum,
@@ -33,12 +39,13 @@ int main(
     printf(
         "Result: Treasure-hunt finished. %u treasure found out of %u in the %u x %u map. \n",
         foundTreasureNum,
-        treasure_num,
+        treasureNum,
         rowNum,
         colNum);
 
     printf(
-        "Press the enter key to exit...");
+        "%s",
+        MSG__PRESS_KEY_TO_EXIT);
     while (getchar() != (int)'\n')
     {
     }

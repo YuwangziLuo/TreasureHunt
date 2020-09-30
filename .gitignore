@@ -1,12 +1,5 @@
-#VSCode Configuration
-
+# VSCode Configuration
 .vscode/
 
-#Code
-
-code/aside/
-code/discarded/
-
-#Other
-Map.txt
-errlog.txt
+# Test
+test/

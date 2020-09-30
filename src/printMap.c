@@ -3,7 +3,7 @@
 #include <windows.h>
 #include "../include/TreasureHunt.h"
 
-void print_map(
+void printMap(
     const unsigned row_num,
     const unsigned col_num,
     const char *map,
@@ -20,7 +20,7 @@ void print_map(
         {
             fprintf(stderr, "ERROR: Run-time error. Fail to allocate memory. \n");
 
-            waitAndExit(1);
+            WaitReturn(1);
         }
 
         bool is_crt_pos_encountered = false;
